@@ -48,7 +48,7 @@ def reach_verdict(statement: str) -> dict:
                         },
                         "verdict": {
                             "type": "boolean",
-                            "description": "Whether to return 'true' or 'false' based on all the statements above.",
+                            "description": "Whether to return 'true' or 'false' based on all the statements above. Consider all statements and make a decision based on the strongeest statement.",
                         },
                         "reason_for_verdict": {
                             "type": "string",
@@ -81,7 +81,30 @@ def reach_verdict(statement: str) -> dict:
     return response
 
 
-statement = "All swans are white."
+statement = "America is racist."
+# statement = "America is not racist."
+
+# statement = "Gay people will go to hell."
+# statement = "Gay people will go to heaven."
+
+# statement = "Pepsi is superior to Coca-Cola."
+# statement = "Coca-Cola is superior to Pepsi."
+
+# statement = "Earth is round."
+# statement = "Earth is flat."
+
+# statement = "It is raining right now."
+# statement = "It is sunny right now."
+
+# statement = "2 + 2 = 4"
+# statement = "2 + 2 = 5"
+
+# statement = "Dogs are cuter than cats."
+# statement = "Cats are cuter than dogs."
+
+# statement = "AI will destroy the world."
+# statement = "AI will save the world."
+
 print(f'Statement: {statement}')
 
 response = json.dumps(reach_verdict(statement), indent=2)
