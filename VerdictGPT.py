@@ -24,27 +24,27 @@ def reach_verdict(statement: str) -> dict:
                     "properties": {
                         "opening_statement_for_true": {
                             "type": "string",
-                            "description": "opening_statement_for_true *must* start with 'The statement is *true* because... '. opening_statement_for_true *must* agree with the original user message, claiming that the verdict should be 'true', including reasons why the verdict should be 'true'."
+                            "description": "You truly agree with the user message. opening_statement_for_true *must* start with 'The statement is *true* because... '. opening_statement_for_true *must* agree with the original user message, claiming that the verdict should be 'true', including reasons why the verdict should be 'true'."
                         },
                         "opening_statement_for_false": {
                             "type": "string",
-                            "description": "opening_statement_for_false *must* start with 'The statement is *false* because... '. opening_statement_for_false must oppose the original user message, claiming that the verdict should be 'false', including reasons why the verdict should be 'false'."
+                            "description": "opening_statement_for_false *must* start with 'The statement is *false* because... '. opening_statement_for_false must oppose the original user message, claiming that the verdict should be 'false', including reasons why the verdict should be 'false'. It should also provide reasons why opening_statement_for_true is incorrect."
                         },
                         "rebuttal_statement_for_true": {
                             "type": "string",
-                            "description": "Rebuttal statement against opening_statement_for_false, insisting that the verdict should be 'true', including new reasons why the verdict should be 'true'."
+                            "description": "Rebuttal statement against opening_statement_for_false, insisting that the verdict should be 'true', including new reasons why the verdict should be 'true'. It should also provide reasons why opening_statement_for_false is incorrect."
                         },
                         "rebuttal_statement_for_false": {
                             "type": "string",
-                            "description": "Rebuttal statement against rebuttal_statement_for_true, insisting that the verdict should be 'false', including new reasons why the verdict should be 'false'."
+                            "description": "Rebuttal statement against rebuttal_statement_for_true, insisting that the verdict should be 'false', including new reasons why the verdict should be 'false'. It should also provide reasons why rebuttal_statement_for_true is incorrect."
                         },
                         "closing_statement_for_true": {
                             "type": "string",
-                            "description": "Closing statement insisting that the verdict should be 'true', including reasons why rebuttal_statement_for_false is incorrect."
+                            "description": "Closing statement insisting that the verdict should be 'true', concluding all the points mentioned before. It should also provide reasons why rebuttal_statement_for_false is incorrect."
                         },
                         "closing_statement_for_false": {
                             "type": "string",
-                            "description": "Closing statement insisting that the verdict should be 'false', including reasons why closing_statement_for_true is incorrect."
+                            "description": "Closing statement insisting that the verdict should be 'false', concluding all the points mentioned before. It should also provide reasons why closing_statement_for_true is incorrect."
                         },
                         "verdict": {
                             "type": "boolean",
@@ -81,7 +81,7 @@ def reach_verdict(statement: str) -> dict:
     return response
 
 
-statement = "Bitcoin is a ponzi."
+statement = "Men can fly."
 print(f'Statement: {statement}')
 
 response = json.dumps(reach_verdict(statement), indent=2)
