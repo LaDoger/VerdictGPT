@@ -28,7 +28,7 @@ def reach_verdict(statement: str) -> dict:
                         },
                         "opening_statement_for_false": {
                             "type": "string",
-                            "description": "opening_statement_for_false *must* start with 'The statement is *false* because... '. opening_statement_for_false must oppose the original user message, claiming that the verdict should be 'false', including reasons why the verdict should be 'false'. It should also provide reasons why opening_statement_for_true is incorrect."
+                            "description": "You disagree with the user message. opening_statement_for_false *must* start with 'The statement is *false* because... '. opening_statement_for_false must oppose the original user message, claiming that the verdict should be 'false', including reasons why the verdict should be 'false'. It should also provide reasons why opening_statement_for_true is incorrect."
                         },
                         "rebuttal_statement_for_true": {
                             "type": "string",
@@ -81,7 +81,7 @@ def reach_verdict(statement: str) -> dict:
     return response
 
 
-statement = "Men can fly."
+statement = "All swans are white."
 print(f'Statement: {statement}')
 
 response = json.dumps(reach_verdict(statement), indent=2)
