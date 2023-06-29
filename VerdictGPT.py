@@ -12,23 +12,23 @@ def reach_verdict(statement: str) -> dict:
         model="gpt-3.5-turbo-0613",
         temperature=0,
         messages=[
-            {"role": "system", "content": "You provide a verdict as a boolean after considering statements on both sides of a topic."},
+            {"role": "system", "content": "You provide a verdict after coming up and considering statements on both sides of a topic."},
             {"role": "user", "content": statement}
         ],
         functions=[
             {
                 "name": "reach_verdict",
-                "description": "Reviewing both sides of a topic and come up with a verdict in the form of a boolean.",
+                "description": "Coming up with arguments from both sides of a topic (provided by the user) and reach a verdict in the form of a boolean. Must start with a supporting statement agreeing with the original user message. Then an oppsing statement. Then a new supporting statement. Then a new opposing statement. Then a supporting closing statement. Then an opposing closing statemtent. Then reach verdict in the form of a boolean. Then provide reasons for the verdict. Then provide a confidence level of the verdict.",
                 "parameters": {
                     "type": "object",
                     "properties": {
                         "supporting_statement": {
                             "type": "string",
-                            "description": "Must start with 'The statement is *true* because... '. You must agree with the user message, claiming that the verdict should be 'true', including reasons why the verdict should be 'true'."
+                            "description": "supporting_statement *must* start with 'The statement is *true* because... '. supporting_statement *must* agree with the original user message, claiming that the verdict should be 'true', including reasons why the verdict should be 'true'."
                         },
                         "opposing_statement": {
                             "type": "string",
-                            "description": "Must start with 'The statement is *false* because... '. You must oppose the user message, claiming that the verdict should be 'false', including reasons why the verdict should be 'false'."
+                            "description": "opposing_statement *must* start with 'The statement is *false* because... '. opposing_statement must oppose the original user message, claiming that the verdict should be 'false', including reasons why the verdict should be 'false'."
                         },
                         "supporting_rebuttal_statement": {
                             "type": "string",
@@ -81,8 +81,8 @@ def reach_verdict(statement: str) -> dict:
     return response
 
 
-statement = "2+2=5"
-response = json.dumps(reach_verdict(statement), indent=2)
-
+statement = "Dogs are ugly."
 print(f'Statement: {statement}')
+
+response = json.dumps(reach_verdict(statement), indent=2)
 print(f'Response:\n{response}')
