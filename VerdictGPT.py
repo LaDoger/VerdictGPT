@@ -9,7 +9,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def reach_verdict(statement: str) -> dict:
     completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo-0613",
+        model="gpt-4-0613",
         temperature=0,
         messages=[
             {"role": "system", "content": "You provide a verdict after coming up and considering statements on both sides of a topic."},
@@ -24,11 +24,11 @@ def reach_verdict(statement: str) -> dict:
                     "properties": {
                         "opening_statement_for_true": {
                             "type": "string",
-                            "description": "You truly agree with the user message. opening_statement_for_true *must* start with 'The statement is *true* because... '. opening_statement_for_true *must* agree with the original user message, claiming that the verdict should be 'true', including reasons why the verdict should be 'true'."
+                            "description": f"You truly agree with the user message. opening_statement_for_true *must* start with '[{statement}] is true because... '. opening_statement_for_true *must* agree with the original user message, claiming that the verdict should be 'true', including reasons why the verdict should be 'true'."
                         },
                         "opening_statement_for_false": {
                             "type": "string",
-                            "description": "You disagree with the user message. opening_statement_for_false *must* start with 'The statement is *false* because... '. opening_statement_for_false must oppose the original user message, claiming that the verdict should be 'false', including reasons why the verdict should be 'false'. It should also provide reasons why opening_statement_for_true is incorrect."
+                            "description": f"You disagree with the user message. opening_statement_for_false *must* start with '[{statement}] is false because... '. opening_statement_for_false must oppose the original user message, claiming that the verdict should be 'false', including reasons why the verdict should be 'false'. It should also provide reasons why opening_statement_for_true is incorrect."
                         },
                         "rebuttal_statement_for_true": {
                             "type": "string",
@@ -58,6 +58,10 @@ def reach_verdict(statement: str) -> dict:
                             "type": "integer",
                             "description": "Confidence level from 0 to 100 for the verdict, 0 being least confident while 100 being most confident."
                         },
+                        "reason_for_confidence_level": {
+                            "type": "string",
+                            "description": "Explain how confidence_level was calculated."
+                        },
                     },
                     "required": [
                         "opening_statement_for_true",
@@ -68,7 +72,8 @@ def reach_verdict(statement: str) -> dict:
                         "closing_statement_for_false",
                         "verdict",
                         "reason_for_verdict",
-                        "confidence_level"
+                        "confidence_level",
+                        "reason_for_confidence_level"
                     ],
                 },
             }
@@ -81,7 +86,7 @@ def reach_verdict(statement: str) -> dict:
     return response
 
 
-statement = "America is racist."
+# statement = "America is racist."
 # statement = "America is not racist."
 
 # statement = "Gay people will go to hell."
@@ -91,7 +96,10 @@ statement = "America is racist."
 # statement = "Coca-Cola is superior to Pepsi."
 
 # statement = "Earth is round."
-# statement = "Earth is flat."
+statement = "Earth is flat."
+
+# statement = "Men who like the color pink are homosexual."
+# statement = "Men who like the color pink are straight."
 
 # statement = "It is raining right now."
 # statement = "It is sunny right now."
@@ -104,6 +112,34 @@ statement = "America is racist."
 
 # statement = "AI will destroy the world."
 # statement = "AI will save the world."
+
+# statement = "Bitcoin is a scam."
+# statement = "US Dollars are a scam."
+
+# Serious Debate Topics
+# statement = "Guns should be banned in the US."
+# statement = "Global warming is going to destroy humanity in 12 years or less."
+# statement = "We should give Universal Basic Income to everyone."
+# statement = "US should ban immigration."
+# statement = "Doing drugs should be decriminalized."
+
+# Conspiracy Theories
+# statement = "Vaccines are dangerous or can cause autism."
+# statement = "The 9/11 terrorist attacks were an inside job carried out by the US government."
+# statement = "The moon landing was faked and NASA has been lying to the public for decades."
+# statement = "There is a secret, powerful group of people controlling world events, known as the 'New World Order.'"
+# statement = "Certain celebrities or politicians are actually reptilian aliens in disguise."
+# statement = "The world is ruled by pedophiles."
+
+# Dumb Statements
+# statement = "Satoshi Nakamoto is Japanese."
+# statement = "Barack Obama was born in America."
+# statement = "The world will end in 2012."
+# statement = "Caitlyn Jenner is a hero."
+# statement = "This statement is false."
+# statement = "Make America Great Again!"
+# statement = "WW3 has already started."
+# statement = "There are aliens already living among us."
 
 print(f'Statement: {statement}')
 
